@@ -14,7 +14,7 @@ class WoopraEventEvent extends WoopraTracker
   }
 
   public function setEventName($name) {
-    $this->eventName() = $name;
+    $this->eventName = $name;
   }
 
   public function addEventVar($name, $value) {
