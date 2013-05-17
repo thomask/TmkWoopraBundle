@@ -4,9 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!-- <services>
-        <service id="tmk.twig.php_ab_extension" class="Tmk\PhpAbBundle\Twig\TwigExtension">
-            <tag name="twig.extension" />
-        </service>
-    </services> -->
+    <services>
+        <service id="tmk.woopra.tracker.event" class="Tmk\WoopraBundle\Lib\Tracker\WoopraTrackerEvent"></service>
+    </services>
 </container>
