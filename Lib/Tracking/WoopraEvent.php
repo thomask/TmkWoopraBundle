@@ -2,7 +2,7 @@
 
 namespace Tmk\WoopraBundle\Lib\Tracking;
 
-class WoopraEventTracker extends WoopraTracker
+class WoopraEventEvent extends WoopraTracker
 {
 
   protected $eventName;
