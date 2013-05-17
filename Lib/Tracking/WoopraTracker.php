@@ -13,7 +13,7 @@ abstract class WoopraTracker
   protected $responseFormat = 'json';
   protected $urlExtraComponents = array();
 
-  public static $apiUrl = "https://www.woopra.com/track/ce/?"
+  public static $apiUrl = "https://www.woopra.com/track/ce/?";
 
   public function __construct ($email)
   {
@@ -53,8 +53,6 @@ abstract class WoopraTracker
       $url .= $component;
     }
 
-    die($url);
-
     return $url;
 
   }
@@ -66,6 +64,8 @@ abstract class WoopraTracker
   public function track() {
 
     $url = $this->createUrl();
+
+    die($url);
     $response = file_get_contents($url);
 
     die($response);
