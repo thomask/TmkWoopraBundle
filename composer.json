@@ -1,0 +1,22 @@
+{
+    "name": "thomask/woopra-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony WoopraBundle",
+    "keywords": ["Analytics", "Woopra"],
+    "license": "GPL2",
+    "authors": [
+        {
+            "name": "Thomas van der Kleij",
+            "email": "thomasvanderkleij@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": { "Tmk\\WoopraBundle": "" }
+    },
+    "target-dir": "Tmk/WoopraBundle"
+}
