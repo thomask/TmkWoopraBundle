@@ -2,24 +2,25 @@
 
 namespace Tmk\WoopraBundle\Lib\Tracking;
 
-class WoopraEventEvent extends WoopraTracker
+class WoopraEvent extends WoopraTracker
 {
 
   protected $eventName;
   protected $eventVars = array();
 
-  function __construct ($email)
+  function __construct ($host)
   {
-    parent::construct($email);
+    parent::__construct($host);
   }
 
-  public function setEventName($name) {
+  public function setName($name) {
     $this->eventName = $name;
   }
 
   public function addEventVar($name, $value) {
     $var['name'] = $name;
-    $var['value'] = $value;
+    $var['value'] = urlencode($value);
+
     array_push($this->eventVars, $var);
   }
 
@@ -31,7 +32,9 @@ class WoopraEventEvent extends WoopraTracker
       $this->addUrlComponent("&ce_{$var['name']}={$var['value']}");
     }
 
-    parent::createUrl();
+    $url = parent::createUrl();
+
+    return $url;
 
   }
 

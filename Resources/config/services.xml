@@ -5,6 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="tmk.woopra.tracking.event" class="Tmk\WoopraBundle\Lib\Tracking\WoopraEvent"></service>
+        <service id="tmk.woopra.tracking.event" class="Tmk\WoopraBundle\Lib\Tracking\WoopraEvent">
+          <argument>%tmk_woopra.host%</argument>
+        </service>
     </services>
 </container>

@@ -15,8 +15,12 @@ abstract class WoopraTracker
 
   public static $apiUrl = "https://www.woopra.com/track/ce/?";
 
-  public function __construct ($email)
+  function __construct ($host)
   {
+    $this->host = $host;
+  }
+
+  public function setEmail($email) {
     $this->email = $email;
     $this->setCookie();
   }
@@ -41,7 +45,11 @@ abstract class WoopraTracker
 
   public function createUrl() {
 
-    $url = $this->apiUrl;
+    if (!$this->email) {
+      throw new \Exception('Email should be set');
+    }
+
+    $url = self::$apiUrl;
 
     $url .= "host={$this->host}";
     $url .= "&response={$this->responseFormat}";
@@ -65,10 +73,7 @@ abstract class WoopraTracker
 
     $url = $this->createUrl();
 
-    die($url);
     $response = file_get_contents($url);
-
-    die($response);
 
   }
 
