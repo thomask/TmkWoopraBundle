@@ -24,7 +24,21 @@ class AnalyticsManager
     $obj = $this->getBaseObj();
     $obj->addFilter($url, 'actions', 'url');
 
-    return $obj->fetch();
+    $result = $obj->fetch();
+
+    return $result->total->cells[0];
+
+  }
+
+  public function getVisitsForUrl($url) {
+
+    $obj = $this->getBaseObj();
+    $obj->addFilter($url, 'actions', 'url');
+    $obj->addColumn('visits');
+
+    $result = $obj->fetch();
+
+    return $result->total->cells[0];
 
   }
 

@@ -69,7 +69,7 @@ class Analytics
     $filter->value = $value;
     $filter->match = $match;
     $filter->key = $key;
-    $filter->_uikey = 'pv:url';
+    // $filter->_uikey = 'pv:url';
 
     $this->filters[] = $filter;
 
@@ -101,17 +101,16 @@ class Analytics
   public function createRequestObject() {
 
     $obj = new \stdClass;
+    $report = new \stdClass;
+
+    $obj->report = $report;
 
     $obj->website = $this->host;
-
     $obj->date_format = $this->dateFormat;
     $obj->start_day = $this->startDate->format($this->phpDateFormat);
     $obj->end_day = $this->endDate->format($this->phpDateFormat);
-
     $obj->limit = $this->limit;
-    $obj->order_by = "group_by(0)";
-    $obj->render = "date_format(group_by(0) ,'E, MMM dd, yyyy')";
-    $obj->menu = "";
+    $obj->offset = $this->offset;
 
     /**
      * Add columns. We add at least one (Default = Visitors)
@@ -120,12 +119,12 @@ class Analytics
       $this->addColumn();
     }
 
-    $obj->columns = $this->columns;
+    $obj->report->columns = $this->columns;
 
     /**
      * Add constraints
      */
-    $obj->constraints = $this->getConstraints();
+    $obj->report->constraints = $this->getConstraints();
 
 
     /**
@@ -135,10 +134,7 @@ class Analytics
       $this->addGroupBy();
     }
 
-    $obj->group_by = $this->groupBy;
-
-    $obj->offset = $this->offset;
-
+    $obj->report->group_by = $this->groupBy;
 
     return $obj;
 
@@ -147,16 +143,9 @@ class Analytics
   public function fetch() {
 
     $obj = $this->createRequestObject();
-
-    // include $_SERVER['DOCUMENT_ROOT'].'/../../devtools/kint/Kint.class.php';
-    // dd(json_encode($obj));
+    $requestString = json_encode($obj);
 
     $ch = curl_init();
-
-    $request = new \stdClass;
-    $request->request = $obj;
-
-    $requestString = json_encode($obj);
 
     curl_setopt($ch, CURLOPT_URL, self::$apiUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -165,8 +154,6 @@ class Analytics
     curl_setopt($ch, CURLOPT_POSTFIELDS, "request={$requestString}");
 
     $response = curl_exec($ch);
-
-    die($response);
 
     curl_close($ch);
 
