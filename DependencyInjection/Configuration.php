@@ -23,6 +23,10 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('host')->end()
+                ->arrayNode('access')->children()
+                    ->scalarNode('id')->end()
+                    ->scalarNode('secret')->end()
+                ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to

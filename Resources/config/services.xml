@@ -8,5 +8,10 @@
         <service id="tmk.woopra.tracking.event" class="Tmk\WoopraBundle\Lib\Tracking\WoopraEvent">
           <argument>%tmk_woopra.host%</argument>
         </service>
+        <service id="tmk.woopra.analytics.manager" class="Tmk\WoopraBundle\Lib\Analytics\AnalyticsManager">
+          <argument>%tmk_woopra.host%</argument>
+          <argument>%tmk_woopra.access.id%</argument>
+          <argument>%tmk_woopra.access.secret%</argument>
+        </service>
     </services>
 </container>

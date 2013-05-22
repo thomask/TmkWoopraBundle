@@ -75,14 +75,8 @@ abstract class WoopraTracker
 
     $response = file_get_contents($url);
 
+    return $response;
+
   }
 
-
-
-
-
-
-
-
 }
-
