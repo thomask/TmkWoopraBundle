@@ -33,7 +33,7 @@ class Analytics
     $this->accessId = $accessId;
     $this->accessSecret = $accessSecret;
 
-    $this->startDate = new \DateTime();
+    $this->startDate = new \DateTime('2013-01-01');
     $this->endDate = new \DateTime();
 
   }
@@ -43,6 +43,15 @@ class Analytics
     $this->host = $host;
 
   }
+
+  public function setDateRange(\DateTime $from, \DateTime $to = null) {
+    $this->startDate = $from;
+    if ($to) {
+      $this->endDate = $to;
+    }
+  }
+
+
 
   public function addColumn($scope = 'visitors', $method = 'count') {
 
