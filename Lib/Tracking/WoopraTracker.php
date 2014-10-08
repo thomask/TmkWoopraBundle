@@ -4,7 +4,6 @@ namespace Tmk\WoopraBundle\Lib\Tracking;
 
 abstract class WoopraTracker
 {
-
   protected $host;
   protected $name;
   protected $email;
@@ -15,42 +14,39 @@ abstract class WoopraTracker
 
   public static $apiUrl = "https://www.woopra.com/track/ce/?";
 
-  function __construct ($host)
+  public function __construct ($host)
   {
     $this->host = $host;
   }
 
-  public function setEmail($email) {
+  public function setEmail($email)
+  {
     $this->email = $email;
     $this->setCookie();
   }
 
-  private function setCookie() {
-
+  private function setCookie()
+  {
     $this->cookie = md5($this->email);
-
   }
 
-  public function setTimeout($timeout) {
-
+  public function setTimeout($timeout)
+  {
     $this->timeout = $timeout;
-
   }
 
-  public function setHost($host) {
-
+  public function setHost($host)
+  {
     $this->host = $host;
-
   }
 
-  public function createUrl() {
-
+  public function createUrl()
+  {
     if (!$this->email) {
       throw new \Exception('Email should be set');
     }
 
     $url = self::$apiUrl;
-
     $url .= "host={$this->host}";
     $url .= "&response={$this->responseFormat}";
     $url .= "&cookie={$this->cookie}";
@@ -62,21 +58,18 @@ abstract class WoopraTracker
     }
 
     return $url;
-
   }
 
-  public function addUrlComponent($component) {
+  public function addUrlComponent($component)
+  {
     array_push($this->urlExtraComponents, $component);
   }
 
-  public function track() {
-
+  public function track()
+  {
     $url = $this->createUrl();
-
     $response = file_get_contents($url);
 
     return $response;
-
   }
-
 }

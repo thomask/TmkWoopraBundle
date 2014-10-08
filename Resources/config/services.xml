@@ -4,8 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tmk.woopra.tracking.event.class">Tmk\WoopraBundle\Lib\Tracking\WoopraEvent</parameter>
+    </parameters>
+
     <services>
-        <service id="tmk.woopra.tracking.event" class="Tmk\WoopraBundle\Lib\Tracking\WoopraEvent">
+        <service id="tmk.woopra.tracking.event" class="%tmk.woopra.tracking.event.class%">
           <argument>%tmk_woopra.host%</argument>
         </service>
         <service id="tmk.woopra.analytics.manager" class="Tmk\WoopraBundle\Lib\Analytics\AnalyticsManager">
