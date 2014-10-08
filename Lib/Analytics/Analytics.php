@@ -4,7 +4,6 @@ namespace Tmk\WoopraBundle\Lib\Analytics;
 
 class Analytics
 {
-
   protected $host;
   protected $accessId;
   protected $accessSecret;
@@ -26,7 +25,6 @@ class Analytics
 
   public static $apiUrl = "https://www.woopra.com/rest/report";
 
-
   function __construct ($host, $accessId, $accessSecret)
   {
     $this->host = $host;
@@ -35,26 +33,23 @@ class Analytics
 
     $this->startDate = new \DateTime('2013-01-01');
     $this->endDate = new \DateTime();
-
   }
 
-  public function setHost($host) {
-
+  public function setHost($host)
+  {
     $this->host = $host;
-
   }
 
-  public function setDateRange(\DateTime $from, \DateTime $to = null) {
+  public function setDateRange(\DateTime $from, \DateTime $to = null)
+  {
     $this->startDate = $from;
     if ($to) {
       $this->endDate = $to;
     }
   }
 
-
-
-  public function addColumn($scope = 'visitors', $method = 'count') {
-
+  public function addColumn($scope = 'visitors', $method = 'count')
+  {
     $column = new \stdClass;
 
     $name = ucfirst($scope);
@@ -67,11 +62,10 @@ class Analytics
     $column->render = "number_format(cell('{$name}'),'#,##0')";
 
     $this->columns[] = $column;
-
   }
 
-  public function addFilter($value, $scope, $key, $match = "match") {
-
+  public function addFilter($value, $scope, $key, $match = "match")
+  {
     $filter = new \stdClass;
 
     $filter->scope = $scope;
@@ -81,11 +75,10 @@ class Analytics
     // $filter->_uikey = 'pv:url';
 
     $this->filters[] = $filter;
-
   }
 
-  public function addGroupBy($scope = "visits", $key = "day") {
-
+  public function addGroupBy($scope = "visits", $key = "day")
+  {
     $groupBy = new \stdClass;
 
     $groupBy->scope = $scope;
@@ -93,10 +86,10 @@ class Analytics
     $groupBy->transforms = array();
 
     $this->groupBy[] = $groupBy;
-
   }
 
-  public function getConstraints() {
+  public function getConstraints()
+  {
     $constraints = new \stdClass;
     $constraints->filters = $this->filters;
 
@@ -107,8 +100,8 @@ class Analytics
     return $constraints;
   }
 
-  public function createRequestObject() {
-
+  public function createRequestObject()
+  {
     $obj = new \stdClass;
     $report = new \stdClass;
 
@@ -135,7 +128,6 @@ class Analytics
      */
     $obj->report->constraints = $this->getConstraints();
 
-
     /**
      * Add group by. We add at least one groupBy (Default = Visitors, day)
      */
@@ -146,11 +138,10 @@ class Analytics
     $obj->report->group_by = $this->groupBy;
 
     return $obj;
-
   }
 
-  public function fetch() {
-
+  public function fetch()
+  {
     $obj = $this->createRequestObject();
     $requestString = json_encode($obj);
 
@@ -167,7 +158,5 @@ class Analytics
     curl_close($ch);
 
     return json_decode($response);
-
   }
-
 }

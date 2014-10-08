@@ -8,30 +8,30 @@ class AnalyticsManager
   protected $accessId;
   protected $accessSecret;
 
-  function __construct ($host, $accessId, $accessSecret)
+  public function __construct ($host, $accessId, $accessSecret)
   {
     $this->host = $host;
     $this->accessId = $accessId;
     $this->accessSecret = $accessSecret;
   }
 
-  private function getBaseObj() {
+  private function getBaseObj()
+  {
     return new Analytics($this->host, $this->accessId, $this->accessSecret);
   }
 
-  public function getVisitorsForUrl($url) {
-
+  public function getVisitorsForUrl($url)
+  {
     $obj = $this->getBaseObj();
     $obj->addFilter($url, 'actions', 'url');
 
     $result = $obj->fetch();
 
     return $result->total->cells[0];
-
   }
 
-  public function getVisitsForUrl($url) {
-
+  public function getVisitsForUrl($url)
+  {
     $obj = $this->getBaseObj();
     $obj->addFilter($url, 'actions', 'url');
     $obj->addColumn('visits');
@@ -39,8 +39,5 @@ class AnalyticsManager
     $result = $obj->fetch();
 
     return $result->total->cells[0];
-
   }
-
 }
-
