@@ -51,7 +51,8 @@ abstract class WoopraTracker
     $url .= "&response={$this->responseFormat}";
     $url .= "&cookie={$this->cookie}";
     $url .= ($this->timeout) ? "&timeout={$this->timeout}" : null;
-    $url .= "&cv_email={$this->email}";
+    $url .= "&cv_email=";
+    $url .= urlencode($this->email);
 
     foreach ($this->urlExtraComponents as $component) {
       $url .= $component;

@@ -30,7 +30,10 @@ class WoopraEvent extends WoopraTracker
     $this->addUrlComponent("&ce_name={$this->eventName}");
 
     foreach ($this->eventVars as $var) {
-      $this->addUrlComponent("&ce_{$var['name']}={$var['value']}");
+      $nameEncoded = urlencode($var['name']);
+      $valueEncoded = urlencode($var['value']);
+
+      $this->addUrlComponent("&ce_{$nameEncoded}={$valueEncoded}");
     }
 
     $url = parent::createUrl();
